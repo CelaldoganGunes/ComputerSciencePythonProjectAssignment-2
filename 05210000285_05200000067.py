@@ -124,10 +124,12 @@ def Konum_Haritada_Varmi(konum, harf_listesi, harita):
     return konum
 
 
-
 def Harfi_Sayiya_Cevir(harf, harf_listesi):
     indeks = harf_listesi.index(harf)
     return int(indeks)
+
+
+def Oyunun_Oynanması()
 
 
 def main():
