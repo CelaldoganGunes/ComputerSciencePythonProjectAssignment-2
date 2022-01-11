@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="418b3b5f-4924-42a6-be82-ab94de9723a7" name="Changes" comment="" />
+    <list id="9fbb23ac-411b-4bd6-a015-81c74a034339" name="Changes by HP" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +17,22 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/05210000285_05200000067.py">
+      <ranges>
+        <range start1="4" end1="4" start2="4" end2="5" changelist="9fbb23ac-411b-4bd6-a015-81c74a034339" />
+        <range start1="5" end1="6" start2="6" end2="15" changelist="418b3b5f-4924-42a6-be82-ab94de9723a7" />
+        <range start1="15" end1="16" start2="24" end2="25" changelist="9fbb23ac-411b-4bd6-a015-81c74a034339" />
+        <range start1="39" end1="39" start2="48" end2="49" changelist="9fbb23ac-411b-4bd6-a015-81c74a034339" />
+        <range start1="42" end1="43" start2="52" end2="53" changelist="418b3b5f-4924-42a6-be82-ab94de9723a7" />
+        <range start1="44" end1="45" start2="54" end2="55" changelist="418b3b5f-4924-42a6-be82-ab94de9723a7" />
+        <range start1="46" end1="46" start2="56" end2="58" changelist="9fbb23ac-411b-4bd6-a015-81c74a034339" />
+        <range start1="58" end1="59" start2="70" end2="71" changelist="418b3b5f-4924-42a6-be82-ab94de9723a7" />
+        <range start1="73" end1="74" start2="85" end2="86" changelist="418b3b5f-4924-42a6-be82-ab94de9723a7" />
+        <range start1="75" end1="76" start2="87" end2="88" changelist="418b3b5f-4924-42a6-be82-ab94de9723a7" />
+      </ranges>
+    </file>
   </component>
   <component name="ProjectId" id="23XhcIdwjAF9ypaGNoDC7RYEFlK" />
   <component name="ProjectViewState">
@@ -76,5 +93,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

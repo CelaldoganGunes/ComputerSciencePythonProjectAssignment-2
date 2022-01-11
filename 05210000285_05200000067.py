@@ -3,7 +3,16 @@ import random
 YATAY_CIZGI_ALT_LIMIT = 3
 YATAY_CIZGI_UST_LIMIT = 7
 
-def haritayi_Yazdir(harita, harf_listesi):
+
+def Tabloya_Harfleri_Yazdir(harf_listesi):
+    print("    ", end="")
+    for harf in harf_listesi[:len(harf_listesi) - 1]:
+        print(f"{harf}     ", end="")
+    else:
+        print(f"{harf_listesi[-1]}")
+
+
+def Haritayi_Yazdir(harita, harf_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
 
@@ -13,7 +22,7 @@ def haritayi_Yazdir(harita, harf_listesi):
 
     print(harita)
 
-
+    Tabloya_Harfleri_Yazdir(harf_listesi)
 
     for i in range(yatay_cizgi-1):
 
@@ -37,13 +46,16 @@ def haritayi_Yazdir(harita, harf_listesi):
             print(f"{harita[yatay_cizgi - 1][indeks]} --- ", end="")
         else:
             print(f"{harita[yatay_cizgi - 1][dikey_cizgi -1]}   {yatay_cizgi}")
+    Tabloya_Harfleri_Yazdir(harf_listesi)
 
 
 
-def haritayi_Olustur():
+def Haritayi_Olustur(harf_listesi):
     print("Yatay çizgi sırasını girin:", end=" ")
-    yatay_cizgi = aralik_Kontrolu(YATAY_CIZGI_ALT_LIMIT, YATAY_CIZGI_UST_LIMIT)
+    yatay_cizgi = Aralik_Kontrolu(YATAY_CIZGI_ALT_LIMIT, YATAY_CIZGI_UST_LIMIT)
     dikey_cizgi = yatay_cizgi + 1
+    harf_listesi[:] = harf_listesi[:dikey_cizgi]
+    print(harf_listesi)
 
     harita = []
 
@@ -56,7 +68,7 @@ def haritayi_Olustur():
 
 
 
-def aralik_Kontrolu(alt_sinir, ust_sinir):
+def Aralik_Kontrolu(alt_sinir, ust_sinir):
     donguyu_bitir = False
     while donguyu_bitir == False:
         try:
@@ -71,9 +83,9 @@ def aralik_Kontrolu(alt_sinir, ust_sinir):
 
 def main():
     harf_listesi = ["A", "B", "C", "D", "E", "F", "G", "H"]
-    harita = haritayi_Olustur()
+    harita = Haritayi_Olustur(harf_listesi)
     print(harita)
-    haritayi_Yazdir(harita, harf_listesi)
+    Haritayi_Yazdir(harita, harf_listesi)
 
 
 
