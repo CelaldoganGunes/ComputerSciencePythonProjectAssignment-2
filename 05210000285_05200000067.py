@@ -179,8 +179,8 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
     Tas_Sil(siyah_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
 
 
-def Tas_Sil(tas_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
-    for i in range(len(tas_listesi)):
+def Tas_Sil(kare_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
+    for i in range(len(kare_listesi)):
         silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
         silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
 
@@ -191,9 +191,18 @@ def Tas_Sil(tas_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
             silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
             yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
         else:
-            harita[yy - 1][dd] = " "
-            Haritayi_Yazdir(harita, harf_listesi)
+            if Konum_Kare_Icindemi(kare_listesi, yy - 1, dd) == False:
+                harita[yy - 1][dd] = " "
+                Haritayi_Yazdir(harita, harf_listesi)
+            else:
 
+
+def Konum_Kare_Icindemi(kare_listesi,yy,dd):
+    for kare in kare_listesi:
+        if [yy,dd] in kare:
+            return True
+    else:
+        return False
 
 
 def main():
