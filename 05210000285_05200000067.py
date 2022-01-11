@@ -20,9 +20,11 @@ def Haritayi_Yazdir(harita, harf_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
 
-    #for yy in range(yatay_cizgi):
-    #    for dd in range(dikey_cizgi):
+    for yy in range(yatay_cizgi):
+        for dd in range(dikey_cizgi):
+            harita[yy][dd] = random.choice(["B", "S"])
     #        harita[yy][dd] = random.randint(1,9)
+
 
     print(harita)
 
@@ -129,7 +131,30 @@ def Harfi_Sayiya_Cevir(harf, harf_listesi):
     return int(indeks)
 
 
-def Oyunun_Oynanması()
+def Tas_Eleme(harita):
+    beyaz_kare = 0
+    siyah_kare = 0
+
+    yatay_cizgi = len(harita)
+    dikey_cizgi = len(harita[0])
+
+    for yy in range(yatay_cizgi-1):
+        for dd in range(dikey_cizgi-1):
+            pos1 = harita[yy][dd]
+            pos2 = harita[yy+1][dd]
+            pos3 = harita[yy+1][dd+1]
+            pos4 = harita[yy][dd+1]
+
+            kare = pos1 + pos2 + pos3 + pos4
+
+            if kare == "BBBB":
+                print(kare)
+                beyaz_kare += 1
+            elif kare == "SSSS":
+                print(kare)
+                siyah_kare += 1
+    print(f"beyaz kara {beyaz_kare}")
+    print(f"siyah kare {siyah_kare}")
 
 
 def main():
@@ -137,8 +162,8 @@ def main():
     harita = Haritayi_Olustur(harf_listesi)
     print(harita)
     Haritayi_Yazdir(harita, harf_listesi)
-    Tas_Yerlestirme(harf_listesi, harita)
-
+    #Tas_Yerlestirme(harf_listesi, harita)
+    Tas_Eleme(harita)
 
 
 
