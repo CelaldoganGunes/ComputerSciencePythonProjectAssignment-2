@@ -78,9 +78,9 @@ def Aralik_Kontrolu(alt_sinir, ust_sinir):
             if alt_sinir <= sayi <= ust_sinir:
                 donguyu_bitir = True
             else:
-                print("Hatalı giriş, lütfen tekrar giriniz: ",end=" ")
+                print("Hatalı giriş, lütfen tekrar giriniz: ", end=" ")
         except ValueError:
-            print("Hatalı giriş, lütfen tekrar giriniz: ",end=" ")
+            print("Hatalı giriş, lütfen tekrar giriniz: ", end=" ")
     return sayi
 
 
@@ -97,15 +97,18 @@ def Tas_Yerlestirme(harf_listesi, harita):
 
         siyah = input("Siyah oyuncu haritaya taş yerleştirmek için konum girsin: ")
         siyah = Konum_Haritada_Varmi(siyah, harf_listesi, harita)
-        harita [int(siyah[1]) - 1] [Harfi_Sayiya_Cevir(siyah[0], harf_listesi)] = KONUM_BEYAZ
+        harita [int(siyah[1]) - 1][Harfi_Sayiya_Cevir(siyah[0], harf_listesi)] = KONUM_SIYAH
         tas_sayisi += 1
+        Haritayi_Yazdir(harita, harf_listesi)
+    else:
+        print("Tüm alan doldu ve taş yerleştirme bitti.")
         Haritayi_Yazdir(harita, harf_listesi)
 
 
 def Konum_Haritada_Varmi(konum, harf_listesi, harita):
-    konum = konum.upper()
     konum_haritada_varmi = False
     while konum_haritada_varmi == False:
+        konum = konum.upper()
         if len(konum) == 2 and konum[0] in harf_listesi and konum[1].isdigit() and int(konum[1]) in range(1, len(harita)+1): #Konum haritada var
             konum_haritada_varmi = True
         else:
