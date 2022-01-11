@@ -3,29 +3,40 @@ import random
 YATAY_CIZGI_ALT_LIMIT = 3
 YATAY_CIZGI_UST_LIMIT = 7
 
-def haritayi_Yazdir(harita):
+def haritayi_Yazdir(harita, harf_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
 
-    for yy in range(yatay_cizgi):
-        for dd in range(dikey_cizgi):
-            harita[yy][dd] = random.randint(1,10)
+    #for yy in range(yatay_cizgi):
+    #    for dd in range(dikey_cizgi):
+    #        harita[yy][dd] = random.randint(1,9)
 
     print(harita)
 
-    for satir in range(2 * yatay_cizgi - 1):
-        print()
-        if satir % 2 == 0:
-            for i in range(yatay_cizgi):
-                print(f"{harita[satir//2][i]}", end="")
-                print("---", end="")
-            print(f"{harita[satir//2][yatay_cizgi]}", end = "")
+
+
+    for i in range(yatay_cizgi-1):
+
+        print(f"{i + 1}   ",end="")
+
+        for indeks in range(dikey_cizgi - 1):
+            print(f"{harita[i][indeks]} --- ", end="")
         else:
-            for a in range(dikey_cizgi):
-                print("|", end="")
-                print("   ", end = "")
+            print(f"{harita[i][dikey_cizgi -1]}   {i + 1}")
 
+        #çizgileri yazdıracaz buraya
+        print("    ",end="")
+        for indeks in range(dikey_cizgi - 1):
+            print(f"|     ", end="")
+        else:
+            print(f"|")
 
+    else:
+        print(f"{yatay_cizgi}   ", end="")
+        for indeks in range(dikey_cizgi - 1):
+            print(f"{harita[yatay_cizgi - 1][indeks]} --- ", end="")
+        else:
+            print(f"{harita[yatay_cizgi - 1][dikey_cizgi -1]}   {yatay_cizgi}")
 
 
 
@@ -59,9 +70,11 @@ def aralik_Kontrolu(alt_sinir, ust_sinir):
     return sayi
 
 def main():
+    harf_listesi = ["A", "B", "C", "D", "E", "F", "G", "H"]
     harita = haritayi_Olustur()
     print(harita)
-    haritayi_Yazdir(harita)
+    haritayi_Yazdir(harita, harf_listesi)
+
 
 
 
