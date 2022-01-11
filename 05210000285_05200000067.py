@@ -20,11 +20,6 @@ def Haritayi_Yazdir(harita, harf_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
 
-    #for yy in range(yatay_cizgi):
-    #    for dd in range(dikey_cizgi):
-    #s        harita[yy][dd] = random.choice(["B", "S"])
-    #        harita[yy][dd] = random.randint(1,9)
-
 
     print(harita)
 
@@ -68,6 +63,13 @@ def Haritayi_Olustur(harf_listesi):
     for i in range(yatay_cizgi):
         liste = [KONUM_BOS] * dikey_cizgi
         harita.append(liste)
+
+    yatay_cizgi = len(harita)
+    dikey_cizgi = len(harita[0])
+
+    for yy in range(yatay_cizgi):
+        for dd in range(dikey_cizgi):
+            harita[yy][dd] = random.choice(["B", "S"])
 
     return harita
 
@@ -113,19 +115,16 @@ def Tas_Yerlestirme(harf_listesi, harita):
 def Konum_Bosmu(konum, harita, harf_listesi):
     konum = Konum_Haritada_Varmi(konum, harf_listesi, harita)
 
-    konum0 = int(konum[0])
-    konum1 = Harfi_Sayiya_Cevir(konum[1], harf_listesi)
+    konum0, konum1 = Metni_Sayi_Konumuna_Cevir(konum, harf_listesi)
+
 
     while harita[konum0 - 1][konum1] != KONUM_BOS:
         konum = input("Girdiğiniz konum dolu. Başka konum giriniz: ")
         konum = Konum_Haritada_Varmi(konum, harf_listesi, harita)
-        konum0 = int(konum[0])
-        konum1 = Harfi_Sayiya_Cevir(konum[1], harf_listesi)
+        konum0, konum1 = Metni_Sayi_Konumuna_Cevir(konum, harf_listesi)
 
     else:
         return konum
-
-
 
 
 def Konum_Haritada_Varmi(konum, harf_listesi, harita):
@@ -140,6 +139,10 @@ def Konum_Haritada_Varmi(konum, harf_listesi, harita):
             konum = input("Hatalı konum girdiniz. Tekrar konumu giriniz: ")
     return konum
 
+def Metni_Sayi_Konumuna_Cevir(konum, harf_listesi):
+    konum0 = int(konum[0])
+    konum1 = Harfi_Sayiya_Cevir(konum[1], harf_listesi)
+    return konum0 , konum1
 
 
 def Harfi_Sayiya_Cevir(harf, harf_listesi):
@@ -167,12 +170,30 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
                 print(kare)
                 siyah_kare_listesi.append([ [yy, dd], [yy+1, dd], [yy+1, dd+1], [yy, dd+1] ])
 
+
+
     print(f"beyaz kare sayısı: {len(beyaz_kare_listesi)} {beyaz_kare_listesi}")
     print(f"siyah kare sayısı: {len(siyah_kare_listesi)} {siyah_kare_listesi}")
 
-    for i in range(len(beyaz_kare_listesi)):
-        silinecek_kare = input("Beyaz oyuncu haritadan taş silmek için konum girsin: ")
+    Tas_Sil(beyaz_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
+    Tas_Sil(siyah_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
+
+
+def Tas_Sil(tas_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
+    for i in range(len(tas_listesi)):
+        silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
         silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+
+        yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
+        while harita[yy - 1][dd] != rakip[0]:
+            print(f"Girdiğiniz konumda silinebilecek uygun {rakip[0]} taş yok.")
+            silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
+            silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+            yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
+        else:
+            harita[yy - 1][dd] = " "
+            Haritayi_Yazdir(harita, harf_listesi)
+
 
 
 def main():
@@ -182,7 +203,7 @@ def main():
     harita = Haritayi_Olustur(harf_listesi)
     print(harita)
     Haritayi_Yazdir(harita, harf_listesi)
-    Tas_Yerlestirme(harf_listesi, harita)
+    #Tas_Yerlestirme(harf_listesi, harita)
     Tas_Eleme(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
 
 
