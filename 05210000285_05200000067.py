@@ -90,14 +90,14 @@ def Tas_Yerlestirme(harf_listesi, harita):
     while tas_sayisi < toplam_alan:
         beyaz = input("Beyaz oyuncu haritaya taş yerleştirmek için konum girsin: ")
         beyaz = Konum_Haritada_Varmi(beyaz, harf_listesi, harita)
-        print(Harfi_Sayiya_Cevir(beyaz[0], harf_listesi))
-        harita [int(beyaz[1]) - 1] [Harfi_Sayiya_Cevir(beyaz[0], harf_listesi)] = KONUM_BEYAZ
+
+        harita [int(beyaz[0]) - 1] [Harfi_Sayiya_Cevir(beyaz[1], harf_listesi)] = KONUM_BEYAZ
         tas_sayisi += 1
         Haritayi_Yazdir(harita, harf_listesi)
 
         siyah = input("Siyah oyuncu haritaya taş yerleştirmek için konum girsin: ")
         siyah = Konum_Haritada_Varmi(siyah, harf_listesi, harita)
-        harita [int(siyah[1]) - 1][Harfi_Sayiya_Cevir(siyah[0], harf_listesi)] = KONUM_SIYAH
+        harita [int(siyah[0]) - 1][Harfi_Sayiya_Cevir(siyah[1], harf_listesi)] = KONUM_SIYAH
         tas_sayisi += 1
         Haritayi_Yazdir(harita, harf_listesi)
     else:
@@ -109,7 +109,7 @@ def Konum_Haritada_Varmi(konum, harf_listesi, harita):
     konum_haritada_varmi = False
     while konum_haritada_varmi == False:
         konum = konum.upper()
-        if len(konum) == 2 and konum[0] in harf_listesi and konum[1].isdigit() and int(konum[1]) in range(1, len(harita)+1): #Konum haritada var
+        if len(konum) == 2 and konum[1] in harf_listesi and konum[0].isdigit() and int(konum[0]) in range(1, len(harita)+1): #Konum haritada var
             konum_haritada_varmi = True
         else:
             konum = input("Hatalı konum girdiniz. Tekrar konumu giriniz: ")
