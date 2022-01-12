@@ -112,33 +112,45 @@ def Tas_Yerlestirme(harf_listesi, harita):
         Haritayi_Yazdir(harita, harf_listesi)
 
 
-def Konum_Bosmu(konum, harita, harf_listesi):
-    konum = Konum_Haritada_Varmi(konum, harf_listesi, harita)
+def Konum_Bosmu(konum, harita, harf_listesi): #1C 2C gibi harfli konum giriliyor
+    konum = Konum_Haritada_Varmi(konum, harf_listesi, harita, 1)
 
     konum0, konum1 = Metni_Sayi_Konumuna_Cevir(konum, harf_listesi)
 
 
     while harita[konum0 - 1][konum1] != KONUM_BOS:
         konum = input("Girdiğiniz konum dolu. Başka konum giriniz: ")
-        konum = Konum_Haritada_Varmi(konum, harf_listesi, harita)
+        konum = Konum_Haritada_Varmi(konum, harf_listesi, harita,1)
         konum0, konum1 = Metni_Sayi_Konumuna_Cevir(konum, harf_listesi)
 
     else:
         return konum
 
 
-def Konum_Haritada_Varmi(konum, harf_listesi, harita):
+def Konum_Haritada_Varmi(konum, harf_listesi, harita, konum_miktari): #1C 2C gibi harfli konum giriliyor
     konum_haritada_varmi = False
     while konum_haritada_varmi == False:
         konum = konum.upper()
-        if len(konum) == 2 and konum[1] in harf_listesi and konum[0].isdigit() and int(konum[0]) in range(1, len(harita)+1): #Konum haritada var
-            konum_haritada_varmi = True
-        else:
-            konum = input("Hatalı konum girdiniz. Tekrar konumu giriniz: ")
+        if konum_miktari == 1:
+            if len(konum) == 2 and konum[1] in harf_listesi and konum[0].isdigit() and int(konum[0]) in range(1,len(harita) + 1):  # Konum haritada var
+                konum_haritada_varmi = True
+            else:
+                konum = input("Hatalı konum girdiniz. Tekrar konumu giriniz: ")
+        elif konum_miktari == 2:
+            if len(konum) == 5 and konum.count(" ") == 1 and konum.index(" ") == 2:
+                duble_konum_metni = konum.split(" ")
+                secilen_kare = duble_konum_metni[0]
+                hedef_kare = duble_konum_metni[1]
+
+                if len(secilen_kare) == 2 and secilen_kare[1] in harf_listesi and secilen_kare[0].isdigit() and int(secilen_kare[0]) in range(1, len(harita) + 1):  # Konum haritada var
+                    if len(hedef_kare) == 2 and hedef_kare[1] in harf_listesi and hedef_kare[0].isdigit() and int(hedef_kare[0]) in range(1, len(harita) + 1):  # Konum haritada var
+                        return secilen_kare, hedef_kare
+            if konum_haritada_varmi == False:
+                konum = input("Hatalı konum girdiniz. Tekrar konumu giriniz: ")
     return konum
 
 
-def Metni_Sayi_Konumuna_Cevir(konum, harf_listesi):
+def Metni_Sayi_Konumuna_Cevir(konum, harf_listesi): #1C 2C gibi harfli konum giriliyor
     konum0 = int(konum[0])
     konum1 = Harfi_Sayiya_Cevir(konum[1], harf_listesi)
     return konum0, konum1
@@ -181,7 +193,7 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
         tas_sil = True
         while tas_sil == True:
             silinecek_kare = input(f"Beyaz oyuncu haritadan taş silmek için konum girsin: ")
-            silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+            silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita,1)
 
             yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
 
@@ -196,7 +208,7 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
 def Tas_Sil(kare_listesi, rakip_kare_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
     for i in range(len(kare_listesi)):
         silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
-        silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+        silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita, 1)
 
         yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
 
@@ -205,17 +217,76 @@ def Tas_Sil(kare_listesi, rakip_kare_listesi, harf_listesi, harita, oyuncu_rengi
             if harita[yy - 1][dd] != rakip[0]:
                 print(f"Girdiğiniz konumda silinebilecek uygun {rakip[0]} taş yok.")
                 silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
-                silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+                silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita, 1)
                 yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
             elif Konum_Kare_Icindemi(rakip_kare_listesi, yy - 1, dd) == True:
                 print(f"Girdiğiniz konumdaki taş, bir karenin üyesi olduğundan silinemez.")
                 silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
-                silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+                silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita, 1)
                 yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
             else:
                 harita[yy - 1][dd] = " "
                 Haritayi_Yazdir(harita, harf_listesi)
                 control = False
+
+
+
+
+def Hareket_Etme(oyuncu, harita, beyaz_kare_listesi, siyah_kare_listesi,harf_listesi):
+    duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için taş seçsin ve hedef konumu girsin [xx xx]: ") #2c 3d
+
+    dongu_kontrol = True
+    Bas_Son_Liste = [0] * 4
+    while dongu_kontrol == True:
+        secilen_kare, hedef_kare = Konum_Haritada_Varmi(duble_konum_metni, harf_listesi, harita, 2)
+        Bas_Son_Liste[0], Bas_Son_Liste[1] = Metni_Sayi_Konumuna_Cevir(secilen_kare,harf_listesi)
+        Bas_Son_Liste[2], Bas_Son_Liste[3] = Metni_Sayi_Konumuna_Cevir(hedef_kare,harf_listesi)
+
+        Bas_Son_Liste[0] -= 1
+        Bas_Son_Liste[2] -= 1
+        if harita[Bas_Son_Liste[0]] [Bas_Son_Liste[1]] != oyuncu[0]:
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            continue
+
+        if harita[Bas_Son_Liste[2]] [Bas_Son_Liste[3]] != KONUM_BOS:
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            continue
+
+        if Bas_Son_Liste[0] == Bas_Son_Liste[2]:
+            Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0],Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "yatay", harita)
+        elif Bas_Son_Liste[1] == Bas_Son_Liste[3]:
+            Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0],Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "dikey", harita)
+        else:
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            continue
+
+def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
+    if dikey_yatay == "dikey":
+        for yy in range(min(y1,y2) + 1, max(y1,y2) + 1):
+            if harita[yy][d1] != KONUM_BOS:
+                return False
+    elif dikey_yatay == "yatay":
+        for dd in range(min(d1,d2) + 1, max(d1,d2) + 1):
+            if harita[y1][dd] != KONUM_BOS:
+                return False
+    return True
+
+def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi):
+    beyaz_tas_sayisi = 0
+    siyah_tas_sayisi = 0
+
+    for yy in range(len(harita)):
+        for dd in range(len(harita[0])):
+            if harita[yy][dd] == "S":
+                siyah_tas_sayisi += 1
+            elif harita[yy][dd] == "B":
+                beyaz_tas_sayisi += 1
+
+    while siyah_tas_sayisi > 3 or beyaz_tas_sayisi > 3:
+        Hareket_Etme("Beyaz", harita, beyaz_kare_listesi, siyah_kare_listesi)
+
+
+
 
 
 
