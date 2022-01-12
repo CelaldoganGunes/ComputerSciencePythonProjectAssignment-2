@@ -130,19 +130,18 @@ def Konum_Bosmu(konum, harita, harf_listesi):
 def Konum_Haritada_Varmi(konum, harf_listesi, harita):
     konum_haritada_varmi = False
     while konum_haritada_varmi == False:
-
         konum = konum.upper()
-
         if len(konum) == 2 and konum[1] in harf_listesi and konum[0].isdigit() and int(konum[0]) in range(1, len(harita)+1): #Konum haritada var
             konum_haritada_varmi = True
         else:
             konum = input("Hatalı konum girdiniz. Tekrar konumu giriniz: ")
     return konum
 
+
 def Metni_Sayi_Konumuna_Cevir(konum, harf_listesi):
     konum0 = int(konum[0])
     konum1 = Harfi_Sayiya_Cevir(konum[1], harf_listesi)
-    return konum0 , konum1
+    return konum0, konum1
 
 
 def Harfi_Sayiya_Cevir(harf, harf_listesi):
@@ -175,8 +174,23 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
     print(f"beyaz kare sayısı: {len(beyaz_kare_listesi)} {beyaz_kare_listesi}")
     print(f"siyah kare sayısı: {len(siyah_kare_listesi)} {siyah_kare_listesi}")
 
-    Tas_Sil(beyaz_kare_listesi, siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
-    Tas_Sil(siyah_kare_listesi, beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
+    if len(beyaz_kare_listesi) + len(siyah_kare_listesi) > 0:
+        Tas_Sil(beyaz_kare_listesi, siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
+        Tas_Sil(siyah_kare_listesi, beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
+    else:
+        tas_sil = True
+        while tas_sil == True:
+            silinecek_kare = input(f"Beyaz oyuncu haritadan taş silmek için konum girsin: ")
+            silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+
+            yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
+
+            if harita[yy - 1][dd] != "S":
+                print(f"Girdiğiniz konumda silinebilecek uygun S taş yok.")
+            else:
+                harita[yy - 1][dd] = " "
+                Haritayi_Yazdir(harita, harf_listesi)
+                tas_sil = False
 
 
 def Tas_Sil(kare_listesi, rakip_kare_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
@@ -203,16 +217,18 @@ def Tas_Sil(kare_listesi, rakip_kare_listesi, harf_listesi, harita, oyuncu_rengi
                 Haritayi_Yazdir(harita, harf_listesi)
                 control = False
 
-def Konum_Kare_Icindemi(kare_listesi,yy,dd):
+
+
+def Konum_Kare_Icindemi(kare_listesi, yy, dd):
     for kare in kare_listesi:
-        if [yy,dd] in kare:
+        if [yy, dd] in kare:
             return True
     else:
         return False
 
 
 def main():
-    print(random.seed("65132132"))
+    #print(random.seed())
     harf_listesi = ["A", "B", "C", "D", "E", "F", "G", "H"]
     beyaz_kare_listesi = []
     siyah_kare_listesi = []
