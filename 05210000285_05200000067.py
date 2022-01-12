@@ -175,27 +175,33 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
     print(f"beyaz kare sayısı: {len(beyaz_kare_listesi)} {beyaz_kare_listesi}")
     print(f"siyah kare sayısı: {len(siyah_kare_listesi)} {siyah_kare_listesi}")
 
-    Tas_Sil(beyaz_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
-    Tas_Sil(siyah_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
+    Tas_Sil(beyaz_kare_listesi, siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
+    Tas_Sil(siyah_kare_listesi, beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
 
 
-def Tas_Sil(kare_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
+def Tas_Sil(kare_listesi, rakip_kare_listesi, harf_listesi, harita, oyuncu_rengi, rakip):
     for i in range(len(kare_listesi)):
         silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
         silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
 
         yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
-        while harita[yy - 1][dd] != rakip[0]:
-            print(f"Girdiğiniz konumda silinebilecek uygun {rakip[0]} taş yok.")
-            silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
-            silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
-            yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
-        else:
-            if Konum_Kare_Icindemi(kare_listesi, yy - 1, dd) == False:
+
+        control = True
+        while control == True:
+            if harita[yy - 1][dd] != rakip[0]:
+                print(f"Girdiğiniz konumda silinebilecek uygun {rakip[0]} taş yok.")
+                silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
+                silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+                yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
+            elif Konum_Kare_Icindemi(rakip_kare_listesi, yy - 1, dd) == True:
+                print(f"Girdiğiniz konumdaki taş, bir karenin üyesi olduğundan silinemez.")
+                silinecek_kare = input(f"{oyuncu_rengi} oyuncu haritadan taş silmek için konum girsin: ")
+                silinecek_kare = Konum_Haritada_Varmi(silinecek_kare, harf_listesi, harita)
+                yy, dd = Metni_Sayi_Konumuna_Cevir(silinecek_kare, harf_listesi)
+            else:
                 harita[yy - 1][dd] = " "
                 Haritayi_Yazdir(harita, harf_listesi)
-            else:
-
+                control = False
 
 def Konum_Kare_Icindemi(kare_listesi,yy,dd):
     for kare in kare_listesi:
@@ -206,6 +212,7 @@ def Konum_Kare_Icindemi(kare_listesi,yy,dd):
 
 
 def main():
+    print(random.seed("65132132"))
     harf_listesi = ["A", "B", "C", "D", "E", "F", "G", "H"]
     beyaz_kare_listesi = []
     siyah_kare_listesi = []
