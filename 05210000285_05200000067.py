@@ -20,7 +20,6 @@ def Haritayi_Yazdir(harita, harf_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
 
-
     print(harita)
 
     Tabloya_Harfleri_Yazdir(harf_listesi)
@@ -50,7 +49,6 @@ def Haritayi_Yazdir(harita, harf_listesi):
     Tabloya_Harfleri_Yazdir(harf_listesi)
 
 
-
 def Haritayi_Olustur(harf_listesi):
     print("Yatay çizgi sırasını girin:", end=" ")
     yatay_cizgi = Aralik_Kontrolu(YATAY_CIZGI_ALT_LIMIT, YATAY_CIZGI_UST_LIMIT)
@@ -72,7 +70,6 @@ def Haritayi_Olustur(harf_listesi):
             harita[yy][dd] = random.choice(["B", "S"])
 
     return harita
-
 
 def Aralik_Kontrolu(alt_sinir, ust_sinir):
     donguyu_bitir = False
@@ -162,26 +159,7 @@ def Harfi_Sayiya_Cevir(harf, harf_listesi):
 
 
 def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
-    yatay_cizgi = len(harita)
-    dikey_cizgi = len(harita[0])
-
-    for yy in range(yatay_cizgi-1):
-        for dd in range(dikey_cizgi-1):
-            pos1 = harita[yy][dd]
-            pos2 = harita[yy+1][dd]
-            pos3 = harita[yy+1][dd+1]
-            pos4 = harita[yy][dd+1]
-
-            kare = pos1 + pos2 + pos3 + pos4
-
-            if kare == "BBBB":
-                print(kare)
-                beyaz_kare_listesi.append([ [yy, dd], [yy+1, dd], [yy+1, dd+1], [yy, dd+1] ])
-            elif kare == "SSSS":
-                print(kare)
-                siyah_kare_listesi.append([ [yy, dd], [yy+1, dd], [yy+1, dd+1], [yy, dd+1] ])
-
-
+    Kareleri_Hesaplama(harita, beyaz_kare_listesi, siyah_kare_listesi)
 
     print(f"beyaz kare sayısı: {len(beyaz_kare_listesi)} {beyaz_kare_listesi}")
     print(f"siyah kare sayısı: {len(siyah_kare_listesi)} {siyah_kare_listesi}")
@@ -189,7 +167,7 @@ def Tas_Eleme(harita,beyaz_kare_listesi,siyah_kare_listesi, harf_listesi):
     if len(beyaz_kare_listesi) + len(siyah_kare_listesi) > 0:
         Tas_Sil(beyaz_kare_listesi, siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
         Tas_Sil(siyah_kare_listesi, beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
-    else:
+    else:  # Hiç kare oluşmadıysa beyaz oyuncu 1 taş silecek
         tas_sil = True
         while tas_sil == True:
             silinecek_kare = input(f"Beyaz oyuncu haritadan taş silmek için konum girsin: ")
@@ -231,7 +209,6 @@ def Tas_Sil(kare_listesi, rakip_kare_listesi, harf_listesi, harita, oyuncu_rengi
 
 
 
-
 def Hareket_Etme(oyuncu, harita, beyaz_kare_listesi, siyah_kare_listesi,harf_listesi):
     duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için taş seçsin ve hedef konumu girsin [xx xx]: ") #2c 3d
 
@@ -247,37 +224,74 @@ def Hareket_Etme(oyuncu, harita, beyaz_kare_listesi, siyah_kare_listesi,harf_lis
 
         #Girilen ilk konum oyuncunun kendi taşı mı?
         if harita[Bas_Son_Liste[0]] [Bas_Son_Liste[1]] != oyuncu[0]:
-            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            print("Girdiğiniz konumda kendi taşınız. yok")
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
 
         #Girilen hedef konum boş mu?
         if harita[Bas_Son_Liste[2]] [Bas_Son_Liste[3]] != KONUM_BOS:
-            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            print("Girdiğiniz hedef konum boş değil.")
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
 
         #Girilen konumların hizaları aynı mı?
         if Bas_Son_Liste[0] == Bas_Son_Liste[2]:
+            print("Yataya kontrol", Bas_Son_Liste[0], Bas_Son_Liste[2])
             iki_nokta_arasi_bosluk = Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0], Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "yatay", harita)
 
         elif Bas_Son_Liste[1] == Bas_Son_Liste[3]:
+            print("Dikeye kontrol", Bas_Son_Liste[1], Bas_Son_Liste[3])
             iki_nokta_arasi_bosluk = Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0],Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "dikey", harita)
 
         else:
-            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            print("Girdiğiniz taşlar aynı hizada değil.")
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
 
-        print("test1", iki_nokta_arasi_bosluk)
+        print("iki nokta arası boşluk: ", iki_nokta_arasi_bosluk)
         #Girilen konumlar arası boş mu?
         if iki_nokta_arasi_bosluk == False:
+            print("Girdiğiniz konumlar arasında başka taş var.")
             duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
 
         dongu_kontrol = False
 
+    #Konumu güncelle
+    harita[Bas_Son_Liste[2]][Bas_Son_Liste[3]] = harita[Bas_Son_Liste[0]][Bas_Son_Liste[1]]
+    harita[Bas_Son_Liste[0]][Bas_Son_Liste[1]] = KONUM_BOS
+    Haritayi_Yazdir(harita, harf_listesi)
 
-        harita[Bas_Son_Liste[2]][Bas_Son_Liste[3]] = harita[Bas_Son_Liste[0]][Bas_Son_Liste[1]]
-        harita[Bas_Son_Liste[0]][Bas_Son_Liste[1]] = KONUM_BOS
-        Haritayi_Yazdir(harita, harf_listesi)
+
+def Kareleri_Hesaplama(harita,beyaz_kare_listesi,siyah_kare_listesi):
+    yatay_cizgi = len(harita)
+    dikey_cizgi = len(harita[0])
+
+    for yy in range(yatay_cizgi-1):
+        for dd in range(dikey_cizgi-1):
+            pos1 = harita[yy][dd]
+            pos2 = harita[yy+1][dd]
+            pos3 = harita[yy+1][dd+1]
+            pos4 = harita[yy][dd+1]
+
+            kare = pos1 + pos2 + pos3 + pos4
+
+            if kare == "BBBB":
+                print(kare)
+                beyaz_kare_listesi.append([ [yy, dd], [yy+1, dd], [yy+1, dd+1], [yy, dd+1] ])
+            elif kare == "SSSS":
+                print(kare)
+                siyah_kare_listesi.append([ [yy, dd], [yy+1, dd], [yy+1, dd+1], [yy, dd+1] ])
+
+
+def Yeni_Kare_Olustumu(yeni_liste, eski_liste):
+    yeni_kare = False
+    for kare in yeni_liste:
+        if kare not in eski_liste:
+            yeni_kare = True
+            break
+    eski_liste[:] = yeni_liste
+    return yeni_kare
 
 
 def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
@@ -295,6 +309,7 @@ def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
 def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi):
     beyaz_tas_sayisi = 0
     siyah_tas_sayisi = 0
+    kazanan = ""
 
     for yy in range(len(harita)):
         for dd in range(len(harita[0])):
@@ -303,11 +318,42 @@ def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
             elif harita[yy][dd] == "B":
                 beyaz_tas_sayisi += 1
 
-    while siyah_tas_sayisi > 3 or beyaz_tas_sayisi > 3:
+    while siyah_tas_sayisi > 3 and beyaz_tas_sayisi > 3:
+        yeni_beyaz_kare_listesi = []
+        yeni_siyah_kare_listesi = []
+
+
         Hareket_Etme("Beyaz", harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
+        Kareleri_Hesaplama(harita, yeni_beyaz_kare_listesi, yeni_siyah_kare_listesi)
+
+        if Yeni_Kare_Olustumu(yeni_beyaz_kare_listesi, beyaz_kare_listesi) == True:
+            Tas_Sil([1], siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
+            siyah_tas_sayisi -= 1
+            if siyah_tas_sayisi <= 3:
+                kazanan = "Beyaz"
+                break
+
+        yeni_beyaz_kare_listesi = []
+        yeni_siyah_kare_listesi = []
+
         Hareket_Etme("Siyah", harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
+        Kareleri_Hesaplama(harita, yeni_beyaz_kare_listesi, yeni_siyah_kare_listesi)
 
+        if Yeni_Kare_Olustumu(yeni_siyah_kare_listesi, siyah_kare_listesi) == True:
+            Tas_Sil([1], beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
+            beyaz_tas_sayisi -= 1
+            if beyaz_tas_sayisi <= 3:
+                kazanan = "Siyah"
 
+    print("")
+    print("")
+    print("")
+    print(f"Oyun Bitti!")
+    print(f"Kazanan Oyuncu: {kazanan}")
+    print("")
+    print("")
+    print("")
+    Haritayi_Yazdir(harita, harf_listesi)
 
 
 
