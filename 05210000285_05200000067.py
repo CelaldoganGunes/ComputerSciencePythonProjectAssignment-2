@@ -244,21 +244,41 @@ def Hareket_Etme(oyuncu, harita, beyaz_kare_listesi, siyah_kare_listesi,harf_lis
 
         Bas_Son_Liste[0] -= 1
         Bas_Son_Liste[2] -= 1
+
+        #Girilen ilk konum oyuncunun kendi taşı mı?
         if harita[Bas_Son_Liste[0]] [Bas_Son_Liste[1]] != oyuncu[0]:
             duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
 
+        #Girilen hedef konum boş mu?
         if harita[Bas_Son_Liste[2]] [Bas_Son_Liste[3]] != KONUM_BOS:
             duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
 
+        #Girilen konumların hizaları aynı mı?
         if Bas_Son_Liste[0] == Bas_Son_Liste[2]:
-            Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0],Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "yatay", harita)
+            iki_nokta_arasi_bosluk = Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0], Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "yatay", harita)
+
         elif Bas_Son_Liste[1] == Bas_Son_Liste[3]:
-            Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0],Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "dikey", harita)
+            iki_nokta_arasi_bosluk = Iki_Nokta_Arasi_Bosmu(Bas_Son_Liste[0],Bas_Son_Liste[1],Bas_Son_Liste[2],Bas_Son_Liste[3], "dikey", harita)
+
         else:
             duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
             continue
+
+        print("test1", iki_nokta_arasi_bosluk)
+        #Girilen konumlar arası boş mu?
+        if iki_nokta_arasi_bosluk == False:
+            duble_konum_metni = input(f"{oyuncu} oyuncu hareket ettirmek için TEKRAR taş seçsin ve hedef konumu girsin [xx xx]: ")
+            continue
+
+        dongu_kontrol = False
+
+
+        harita[Bas_Son_Liste[2]][Bas_Son_Liste[3]] = harita[Bas_Son_Liste[0]][Bas_Son_Liste[1]]
+        harita[Bas_Son_Liste[0]][Bas_Son_Liste[1]] = KONUM_BOS
+        Haritayi_Yazdir(harita, harf_listesi)
+
 
 def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
     if dikey_yatay == "dikey":
@@ -271,7 +291,8 @@ def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
                 return False
     return True
 
-def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi):
+
+def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi):
     beyaz_tas_sayisi = 0
     siyah_tas_sayisi = 0
 
@@ -283,7 +304,8 @@ def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi):
                 beyaz_tas_sayisi += 1
 
     while siyah_tas_sayisi > 3 or beyaz_tas_sayisi > 3:
-        Hareket_Etme("Beyaz", harita, beyaz_kare_listesi, siyah_kare_listesi)
+        Hareket_Etme("Beyaz", harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
+        Hareket_Etme("Siyah", harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
 
 
 
@@ -308,7 +330,7 @@ def main():
     Haritayi_Yazdir(harita, harf_listesi)
     #Tas_Yerlestirme(harf_listesi, harita)
     Tas_Eleme(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
-
+    Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
 
 
 
