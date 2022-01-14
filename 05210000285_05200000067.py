@@ -65,9 +65,16 @@ def Haritayi_Olustur(harf_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
 
+    siyahhhh_listesi = [KONUM_SIYAH] * int(yatay_cizgi * dikey_cizgi / 2)
+    beyazzzz_listesi = [KONUM_BEYAZ] * int(yatay_cizgi * dikey_cizgi / 2)
+
+    beyazzzz_listesi += siyahhhh_listesi
+    random.shuffle(beyazzzz_listesi)
+
     for yy in range(yatay_cizgi):
         for dd in range(dikey_cizgi):
-            harita[yy][dd] = random.choice(["B", "S"])
+            harita[yy][dd] = beyazzzz_listesi[0]
+            beyazzzz_listesi.pop(0)
 
     return harita
 
@@ -263,6 +270,18 @@ def Hareket_Etme(oyuncu, harita, beyaz_kare_listesi, siyah_kare_listesi,harf_lis
     Haritayi_Yazdir(harita, harf_listesi)
 
 
+def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
+    if dikey_yatay == "dikey":
+        for yy in range(min(y1,y2) + 1, max(y1,y2) + 1):
+            if yy != y1 and harita[yy][d1] != KONUM_BOS:
+                return False
+    elif dikey_yatay == "yatay":
+        for dd in range(min(d1,d2) + 1, max(d1,d2) + 1):
+            if dd != d1 and harita[y1][dd] != KONUM_BOS:
+                return False
+    return True
+
+
 def Kareleri_Hesaplama(harita,beyaz_kare_listesi,siyah_kare_listesi):
     yatay_cizgi = len(harita)
     dikey_cizgi = len(harita[0])
@@ -293,17 +312,6 @@ def Yeni_Kare_Olustumu(yeni_liste, eski_liste):
     eski_liste[:] = yeni_liste
     return yeni_kare
 
-
-def Iki_Nokta_Arasi_Bosmu(y1,d1,y2,d2, dikey_yatay, harita):
-    if dikey_yatay == "dikey":
-        for yy in range(min(y1,y2) + 1, max(y1,y2) + 1):
-            if harita[yy][d1] != KONUM_BOS:
-                return False
-    elif dikey_yatay == "yatay":
-        for dd in range(min(d1,d2) + 1, max(d1,d2) + 1):
-            if harita[y1][dd] != KONUM_BOS:
-                return False
-    return True
 
 
 def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi):
