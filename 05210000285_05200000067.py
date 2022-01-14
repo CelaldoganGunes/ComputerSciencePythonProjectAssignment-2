@@ -337,7 +337,7 @@ def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
         if Yeni_Kare_Olustumu(yeni_beyaz_kare_listesi, beyaz_kare_listesi) == True:
             Tas_Sil([1], siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
             siyah_tas_sayisi -= 1
-            if siyah_tas_sayisi <= 3:
+            if siyah_tas_sayisi < 4:
                 kazanan = "Beyaz"
                 break
 
@@ -350,8 +350,9 @@ def Oyunun_Govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi)
         if Yeni_Kare_Olustumu(yeni_siyah_kare_listesi, siyah_kare_listesi) == True:
             Tas_Sil([1], beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
             beyaz_tas_sayisi -= 1
-            if beyaz_tas_sayisi <= 3:
+            if beyaz_tas_sayisi < 4:
                 kazanan = "Siyah"
+                break
 
     print("")
     print("")
