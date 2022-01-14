@@ -302,6 +302,8 @@ def f_oyunun_govdesi(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listes
     siyah_tas_sayisi = 0
     kazanan = ""
 
+    # Taş elemeden sonra kalan taş sayısını hesapla
+
     for yy in range(len(harita)):
         for dd in range(len(harita[0])):
             if harita[yy][dd] == "S":
