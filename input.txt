@@ -1,0 +1,184 @@
+7
+6D
+5D
+6G
+7D
+6C
+3C
+2E
+1H
+4F
+2G
+7G
+3G
+7F
+5F
+7B
+6B
+3H
+1D
+4D
+5E
+5G
+4C
+4G
+1C
+7C
+4E
+3B
+3F
+1B
+6E
+4H
+5H
+2F
+4A
+2C
+5A
+5B
+5C
+3D
+6F
+7A
+7E
+6A
+1F
+2B
+6H
+2A
+7H
+4B
+2H
+3E
+1G
+1E
+3A
+1A
+2D
+5e
+7d
+a9
+6e
+6d
+6c
+7c 6b
+7c 6c
+7e 7d
+6c 6d
+6e 7e
+7b 7c
+7e 6e
+4f
+2b
+4f
+7f 7d
+7f 7e
+aa aa
+3f 4f
+6g
+aa aa
+2f 3f
+2g 2f
+7g 6g
+2f 2g
+3a
+4a
+4d
+2e 2f
+4e 4d
+6d
+1e 2e
+5f
+5d
+3g
+
+4f 4e
+3e
+3f
+aa
+x
+3h
+7c 6c
+1r
+7d 6d
+6c
+3f 4f
+6b 6c
+2c
+x
+7e 7b
+3c 2c
+2e
+3e 3h
+6c 6b
+mdlsamdlsa
+3d 3g
+6b
+6d 6c
+5b 6b
+1f
+6e 6d
+4f
+4b 5b
+6f 6e
+5b
+2f 4f
+2c 3c
+3b 4b
+2d 3d
+4f
+4b 5b
+4a 4b
+6g 6f
+3a 3b
+6f
+5g 6g
+6e 6f
+6g 5g
+6f 6e
+5b
+5g 6g
+
+1d 2d
+6g 6f
+1c 2c
+1g
+6f
+3g 3e
+2g 3g
+4g 4f
+6h 6f
+3h
+4h 3h
+5a 5b
+3e
+1b 1f
+3g 2g
+1f
+1a 1e
+7h 7c
+1e 3e
+6d 7d
+2b 1b
+6e 6d
+1b
+6a 3a
+6f 6e
+3e
+7a 4a
+3d 3e
+2a 1a
+2d 3d
+4f
+7b 7a
+2g 2d
+6b
+3a 2a
+5h 4h
+1a 2a
+1a 1b
+4h 4f
+3h
+1b 1c
+2d 2g
+7a
