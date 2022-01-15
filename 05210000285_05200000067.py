@@ -1,4 +1,3 @@
-
 # Sabitler
 YATAY_CIZGI_ALT_LIMIT = 3
 YATAY_CIZGI_UST_LIMIT = 7
@@ -47,7 +46,7 @@ def f_haritayi_yazdir(harita, harf_listesi):
 
 
 def f_haritayi_olustur(harf_listesi):
-    print("Yatay çizgi sırasını girin:", end=" ")
+    print("Yatay çizgi sayısını girin:", end=" ")
     yatay_cizgi = f_aralik_kontrolu(YATAY_CIZGI_ALT_LIMIT, YATAY_CIZGI_UST_LIMIT)
     dikey_cizgi = yatay_cizgi + 1
     harf_listesi[:] = harf_listesi[:dikey_cizgi]
@@ -158,6 +157,12 @@ def f_harfi_sayiya_cevir(harf, harf_listesi):
 def f_tas_eleme(harita, beyaz_kare_listesi, siyah_kare_listesi, harf_listesi):
     f_kareleri_hesaplama(harita, beyaz_kare_listesi, siyah_kare_listesi)
 
+    print("")
+    print("")
+    print(f"Beyaz oyuncu {len(beyaz_kare_listesi)} kare oluşturdu.")
+    print(f"Siyah oyuncu {len(siyah_kare_listesi)} kare oluşturdu.")
+    print("")
+
     if len(beyaz_kare_listesi) + len(siyah_kare_listesi) > 0:
         f_tas_sil(beyaz_kare_listesi, siyah_kare_listesi, harf_listesi, harita, "Beyaz", "Siyah")
         f_tas_sil(siyah_kare_listesi, beyaz_kare_listesi, harf_listesi, harita, "Siyah", "Beyaz")
@@ -230,11 +235,9 @@ def f_hareket_etme(oyuncu, harita, harf_listesi):
 
         # Girilen konumların hizaları aynı mı?
         if ilk_son_konum_liste[0] == ilk_son_konum_liste[2]:
-            print("Yataya kontrol", ilk_son_konum_liste[0], ilk_son_konum_liste[2])
             iki_nokta_arasi_bosluk = f_iki_nokta_arasi_bosmu(ilk_son_konum_liste[0], ilk_son_konum_liste[1], ilk_son_konum_liste[2], ilk_son_konum_liste[3], "yatay", harita)
 
         elif ilk_son_konum_liste[1] == ilk_son_konum_liste[3]:
-            print("Dikeye kontrol", ilk_son_konum_liste[1], ilk_son_konum_liste[3])
             iki_nokta_arasi_bosluk = f_iki_nokta_arasi_bosmu(ilk_son_konum_liste[0], ilk_son_konum_liste[1], ilk_son_konum_liste[2], ilk_son_konum_liste[3], "dikey", harita)
 
         else:
